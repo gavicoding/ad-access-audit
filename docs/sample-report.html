@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AD access audit - exemplo.local</title>
+<style>
+:root{--bg:#f6f7f9;--panel:#fff;--text:#1d2330;--muted:#5d6678;--border:#dde1e8;--accent:#2457c5;
+--critical:#b3261e;--high:#d9570d;--medium:#a87900;--low:#2f6fb3;}
+[data-theme="dark"]{--bg:#12151b;--panel:#1b2029;--text:#e6e9ef;--muted:#9aa3b5;--border:#2c3340;--accent:#7aa2ff;
+--critical:#ff6b61;--high:#ff9a52;--medium:#e2b93b;--low:#6fa8ff;}
+*{box-sizing:border-box}
+body{margin:0;font:14px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+header{padding:24px 32px 8px;display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start;justify-content:space-between}
+h1{margin:0;font-size:22px}
+.muted{color:var(--muted)}.small{font-size:12px}
+main{padding:8px 32px 32px}
+.meta{margin:4px 0 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}
+.card{background:var(--panel);border:1px solid var(--border);border-left:6px solid;border-radius:8px;padding:14px 16px;text-align:left;cursor:pointer;color:var(--text);font:inherit}
+.card .num{display:block;font-size:28px;font-weight:700}
+.card .lbl{color:var(--muted)}
+.card[aria-pressed="false"]{opacity:.45}
+.card.critical{border-left-color:var(--critical)}.card.high{border-left-color:var(--high)}
+.card.medium{border-left-color:var(--medium)}.card.low{border-left-color:var(--low)}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+input,select,.btn{background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font:inherit}
+input{flex:1;min-width:220px}
+.btn{cursor:pointer}
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+th,td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top;text-align:left}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+tr.hidden{display:none}
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;color:#fff}
+.badge.critical{background:var(--critical)}.badge.high{background:var(--high)}
+.badge.medium{background:var(--medium)}.badge.low{background:var(--low)}
+[data-theme="dark"] .badge{color:#12151b}
+.rule{font-family:Consolas,monospace;font-size:12px;color:var(--accent)}
+details summary{cursor:pointer;color:var(--accent)}
+details p{margin:6px 0}
+.empty{padding:24px;text-align:center}
+footer{padding:0 32px 24px;font-size:12px;color:var(--muted)}
+@media print{.controls,#theme{display:none}tr.hidden{display:table-row}details{display:block}}
+</style>
+</head>
+<body>
+<header>
+<div>
+<h1>Active Directory access audit</h1>
+<p class="meta muted">Domain <strong>exemplo.local</strong> | reference date 2026-11-20T12:00:00Z | 40 accounts scanned | 31 findings</p>
+<p class="meta muted small">Offline mode, snapshot file snapshot-ficticio.json</p>
+</div>
+<button type="button" class="btn" id="theme">Toggle dark/light</button>
+</header>
+<main>
+<section class="cards" aria-label="Findings by severity">
+<button type="button" class="card critical" data-toggle-sev="critical" aria-pressed="true"><span class="num">3</span><span class="lbl">Critical</span></button>
+<button type="button" class="card high" data-toggle-sev="high" aria-pressed="true"><span class="num">4</span><span class="lbl">High</span></button>
+<button type="button" class="card medium" data-toggle-sev="medium" aria-pressed="true"><span class="num">13</span><span class="lbl">Medium</span></button>
+<button type="button" class="card low" data-toggle-sev="low" aria-pressed="true"><span class="num">11</span><span class="lbl">Low</span></button>
+
+</section>
+<div class="controls">
+<input type="search" id="q" placeholder="Filter by account, name, group or text" aria-label="Filter">
+<select id="rule" aria-label="Rule"><option value="">All rules</option>
+<option value="AAA001">AAA001 - Enabled account without logon for too long (4)</option>
+<option value="AAA002">AAA002 - Password set to never expire (6)</option>
+<option value="AAA003">AAA003 - Password not changed for too long (4)</option>
+<option value="AAA004">AAA004 - Disabled account still in a privileged group (2)</option>
+<option value="AAA005">AAA005 - Member of a privileged group (review) (6)</option>
+<option value="AAA006">AAA006 - adminCount=1 without privileged membership (2)</option>
+<option value="AAA007">AAA007 - Service or third-party account without logon hours (5)</option>
+<option value="AAA008">AAA008 - Account never used (2)</option>
+
+</select>
+<button type="button" class="btn" id="reset">Reset filters</button>
+</div>
+<p class="muted small" id="count"></p>
+<table>
+<thead><tr><th>Severity</th><th>Account</th><th>Finding</th><th>Details</th></tr></thead>
+<tbody id="rows">
+<tr data-sev="critical" data-rule="AAA001" data-search="adm.paulo paulo amostra (admin) enabled account without logon for too long last logon 2026-05-02 (201 days ago, threshold 90). domain admins, administrators aaa001">
+<td><span class="badge critical">Critical</span></td>
+<td><strong>adm.paulo</strong><div class="muted">Paulo Amostra (admin)</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA001</span> Enabled account without logon for too long<div class="muted">Last logon 2026-05-02 (201 days ago, threshold 90).</div></td>
+<td><details><summary>Why and what to do</summary><p>The account is enabled but has not logged on for longer than the configured threshold. Forgotten accounts keep working credentials that nobody watches, which makes them a favorite target for password spraying and for people who already left.</p><p><strong>Recommendation:</strong> Confirm with the owner or manager whether the account is still needed. If not, disable it now and delete it after your retention period. For service accounts, prefer a gMSA.</p></details></td>
+</tr>
+<tr data-sev="critical" data-rule="AAA002" data-search="adm.rafael rafael modelo (admin) password set to never expire password never expires. last change 2023-05-15 (1285 days ago). domain admins, administrators aaa002">
+<td><span class="badge critical">Critical</span></td>
+<td><strong>adm.rafael</strong><div class="muted">Rafael Modelo (admin)</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA002</span> Password set to never expire<div class="muted">Password never expires. Last change 2023-05-15 (1285 days ago).</div></td>
+<td><details><summary>Why and what to do</summary><p>The account ignores the domain password policy. A password that leaked years ago keeps working, and nobody is forced to notice.</p><p><strong>Recommendation:</strong> Remove the &quot;Password never expires&quot; flag. For service accounts, move to a group Managed Service Account (gMSA) or rotate the password on a documented schedule.</p></details></td>
+</tr>
+<tr data-sev="critical" data-rule="AAA002" data-search="svc.backup svc.backup password set to never expire password never expires. last change 2021-06-01 (1998 days ago). administrators, backup operators aaa002">
+<td><span class="badge critical">Critical</span></td>
+<td><strong>svc.backup</strong><div class="muted">svc.backup</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA002</span> Password set to never expire<div class="muted">Password never expires. Last change 2021-06-01 (1998 days ago).</div></td>
+<td><details><summary>Why and what to do</summary><p>The account ignores the domain password policy. A password that leaked years ago keeps working, and nobody is forced to notice.</p><p><strong>Recommendation:</strong> Remove the &quot;Password never expires&quot; flag. For service accounts, move to a group Managed Service Account (gMSA) or rotate the password on a documented schedule.</p></details></td>
+</tr>
+<tr data-sev="high" data-rule="AAA003" data-search="administrator administrator password not changed for too long last password change 2024-01-10 (1045 days ago, threshold 365). domain admins, enterprise admins, schema admins, administrators aaa003">
+<td><span class="badge high">High</span></td>
+<td><strong>Administrator</strong><div class="muted">Administrator</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA003</span> Password not changed for too long<div class="muted">Last password change 2024-01-10 (1045 days ago, threshold 365).</div></td>
+<td><details><summary>Why and what to do</summary><p>The password has not been changed for longer than the configured threshold. Old passwords are more likely to appear in leaks or to be shared informally.</p><p><strong>Recommendation:</strong> Ask the user to change the password, or force a change at next logon. Check whether a fine-grained password policy is exempting this account.</p></details></td>
+</tr>
+<tr data-sev="high" data-rule="AAA004" data-search="adm.joana joana teste (admin) disabled account still in a privileged group disabled, still member of: domain admins, administrators. domain admins, administrators aaa004">
+<td><span class="badge high">High</span></td>
+<td><strong>adm.joana</strong><div class="muted">Joana Teste (admin)</div><div class="muted small">Disabled</div></td>
+<td><span class="rule">AAA004</span> Disabled account still in a privileged group<div class="muted">Disabled, still member of: Domain Admins, Administrators.</div></td>
+<td><details><summary>Why and what to do</summary><p>The account is disabled but kept its administrative group membership. Anyone who re-enables it, by mistake or on purpose, instantly gets full privileges without any new approval.</p><p><strong>Recommendation:</strong> Remove the account from every privileged group as part of the offboarding process. Keep the removal in your change log.</p></details></td>
+</tr>
+<tr data-sev="high" data-rule="AAA004" data-search="ex.marcos marcos modelo disabled account still in a privileged group disabled, still member of: backup operators. backup operators aaa004">
+<td><span class="badge high">High</span></td>
+<td><strong>ex.marcos</strong><div class="muted">Marcos Modelo</div><div class="muted small">Disabled</div></td>
+<td><span class="rule">AAA004</span> Disabled account still in a privileged group<div class="muted">Disabled, still member of: Backup Operators.</div></td>
+<td><details><summary>Why and what to do</summary><p>The account is disabled but kept its administrative group membership. Anyone who re-enables it, by mistake or on purpose, instantly gets full privileges without any new approval.</p><p><strong>Recommendation:</strong> Remove the account from every privileged group as part of the offboarding process. Keep the removal in your change log.</p></details></td>
+</tr>
+<tr data-sev="high" data-rule="AAA007" data-search="svc.backup svc.backup service or third-party account without logon hours service account with no logonhours restriction (allowed 24x7). administrators, backup operators aaa007">
+<td><span class="badge high">High</span></td>
+<td><strong>svc.backup</strong><div class="muted">svc.backup</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA007</span> Service or third-party account without logon hours<div class="muted">Service account with no logonHours restriction (allowed 24x7).</div></td>
+<td><details><summary>Why and what to do</summary><p>The account looks like a service or third-party account and can log on at any hour, any day. Supplier and contractor access is a common entry point, and an attack at 3 AM on a Sunday goes unnoticed for longer.</p><p><strong>Recommendation:</strong> Set logonHours to the agreed support window for third parties. For service accounts, deny interactive logon and restrict them to the servers they need (logonWorkstations, &quot;Log on as a service&quot; rights).</p></details></td>
+</tr>
+<tr data-sev="medium" data-rule="AAA001" data-search="estagio.bia beatriz modelo enabled account without logon for too long last logon 2026-04-15 (219 days ago, threshold 90).  aaa001">
+<td><span class="badge medium">Medium</span></td>
+<td><strong>estagio.bia</strong><div class="muted">Beatriz Modelo</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA001</span> Enabled account without logon for too long<div class="muted">Last logon 2026-04-15 (219 days ago, threshold 90).</div></td>
+<td><details><summary>Why and what to do</summary><p>The account is enabled but has not logged on for longer than the configured threshold. Forgotten accounts keep working credentials that nobody watches, which makes them a favorite target for password spraying and for people who already left.</p><p><strong>Recommendation:</strong> Confirm with the owner or manager whether the account is still needed. If not, disable it now and delete it after your retention period. For service accounts, prefer a gMSA.</p></details></td>
+</tr>
+<tr data-sev="medium" data-rule="AAA001" data-search="maria.teste maria teste enabled account without logon for too long last logon 2026-06-01 (172 days ago, threshold 90).  aaa001">
+<td><span class="badge medium">Medium</span></td>
+<td><strong>maria.teste</strong><div class="muted">Maria Teste</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA001</span> Enabled account without logon for too long<div class="muted">Last logon 2026-06-01 (172 days ago, threshold 90).</div></td>
+<td><details><summary>Why and what to do</summary><p>The account is enabled but has not logged on for longer than the configured threshold. Forgotten accounts keep working credentials that nobody watches, which makes them a favorite target for password spraying and for people who already left.</p><p><strong>Recommendation:</strong> Confirm with the owner or manager whether the account is still needed. If not, disable it now and delete it after your retention period. For service accounts, prefer a gMSA.</p></details></td>
+</tr>
+<tr data-sev="medium" data-rule="AAA001" data-search="vnd.erp fornecedor erp enabled account without logon for too long last logon 2026-03-10 (254 days ago, threshold 90).  aaa001">
+<td><span class="badge medium">Medium</span></td>
+<td><strong>vnd.erp</strong><div class="muted">Fornecedor ERP</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA001</span> Enabled account without logon for too long<div class="muted">Last logon 2026-03-10 (254 days ago, threshold 90).</div></td>
+<td><details><summary>Why and what to do</summary><p>The account is enabled but has not logged on for longer than the configured threshold. Forgotten accounts keep working credentials that nobody watches, which makes them a favorite target for password spraying and for people who already left.</p><p><strong>Recommendation:</strong> Confirm with the owner or manager whether the account is still needed. If not, disable it now and delete it after your retention period. For service accounts, prefer a gMSA.</p></details></td>
+</tr>
+<tr data-sev="medium" data-rule="AAA002" data-search="estagio.bia beatriz modelo password set to never expire password never expires. last change 2025-02-01 (657 days ago).  aaa002">
+<td><span class="badge medium">Medium</span></td>
+<td><strong>estagio.bia</strong><div class="muted">Beatriz Modelo</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA002</span> Password set to never expire<div class="muted">Password never expires. Last change 2025-02-01 (657 days ago).</div></td>
+<td><details><summary>Why and what to do</summary><p>The account ignores the domain password policy. A password that leaked years ago keeps working, and nobody is forced to notice.</p><p><strong>Recommendation:</strong> Remove the &quot;Password never expires&quot; flag. For service accounts, move to a group Managed Service Account (gMSA) or rotate the password on a documented schedule.</p></details></td>
+</tr>
+<tr data-sev="medium" data-rule="AAA002" data-search="lucia.amostra lucia amostra password set to never expire password never expires. last change 2026-01-05 (319 days ago).  aaa002">
+<td><span class="badge medium">Medium</span></td>
+<td><strong>lucia.amostra</strong><div class="muted">Lucia Amostra</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA002</span> Password set to never expire<div class="muted">Password never expires. Last change 2026-01-05 (319 days ago).</div></td>
+<td><details><summary>Why and what to do</summary><p>The account ignores the domain password policy. A password that leaked years ago keeps working, and nobody is forced to notice.</p><p><strong>Recommendation:</strong> Remove the &quot;Password never expires&quot; flag. For service accounts, move to a group Managed Service Account (gMSA) or rotate the password on a documented schedule.</p></details></td>
+</tr>
+<tr data-sev="medium" data-rule="AAA002" data-search="recepcao recepcao password set to never expire password never expires. last change 2020-01-10 (2506 days ago).  aaa002">
+<td><span class="badge medium">Medium</span></td>
+<td><strong>recepcao</strong><div class="muted">Recepcao</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA002</span> Password set to never expire<div class="muted">Password never expires. Last change 2020-01-10 (2506 days ago).</div></td>
+<td><details><summary>Why and what to do</summary><p>The account ignores the domain password policy. A password that leaked years ago keeps working, and nobody is forced to notice.</p><p><strong>Recommendation:</strong> Remove the &quot;Password never expires&quot; flag. For service accounts, move to a group Managed Service Account (gMSA) or rotate the password on a documented schedule.</p></details></td>
+</tr>
+<tr data-sev="medium" data-rule="AAA002" data-search="svc.sql svc.sql password set to never expire password never expires. last change 2022-01-20 (1765 days ago).  aaa002">
+<td><span class="badge medium">Medium</span></td>
+<td><strong>svc.sql</strong><div class="muted">svc.sql</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA002</span> Password set to never expire<div class="muted">Password never expires. Last change 2022-01-20 (1765 days ago).</div></td>
+<td><details><summary>Why and what to do</summary><p>The account ignores the domain password policy. A password that leaked years ago keeps working, and nobody is forced to notice.</p><p><strong>Recommendation:</strong> Remove the &quot;Password never expires&quot; flag. For service accounts, move to a group Managed Service Account (gMSA) or rotate the password on a documented schedule.</p></details></td>
+</tr>
+<tr data-sev="medium" data-rule="AAA007" data-search="ext.consultoria consultoria exemplo service or third-party account without logon hours third-party account with no logonhours restriction (allowed 24x7).  aaa007">
+<td><span class="badge medium">Medium</span></td>
+<td><strong>ext.consultoria</strong><div class="muted">Consultoria Exemplo</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA007</span> Service or third-party account without logon hours<div class="muted">Third-party account with no logonHours restriction (allowed 24x7).</div></td>
+<td><details><summary>Why and what to do</summary><p>The account looks like a service or third-party account and can log on at any hour, any day. Supplier and contractor access is a common entry point, and an attack at 3 AM on a Sunday goes unnoticed for longer.</p><p><strong>Recommendation:</strong> Set logonHours to the agreed support window for third parties. For service accounts, deny interactive logon and restrict them to the servers they need (logonWorkstations, &quot;Log on as a service&quot; rights).</p></details></td>
+</tr>
+<tr data-sev="medium" data-rule="AAA007" data-search="svc.print svc.print service or third-party account without logon hours service account with no logonhours restriction (allowed 24x7).  aaa007">
+<td><span class="badge medium">Medium</span></td>
+<td><strong>svc.print</strong><div class="muted">svc.print</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA007</span> Service or third-party account without logon hours<div class="muted">Service account with no logonHours restriction (allowed 24x7).</div></td>
+<td><details><summary>Why and what to do</summary><p>The account looks like a service or third-party account and can log on at any hour, any day. Supplier and contractor access is a common entry point, and an attack at 3 AM on a Sunday goes unnoticed for longer.</p><p><strong>Recommendation:</strong> Set logonHours to the agreed support window for third parties. For service accounts, deny interactive logon and restrict them to the servers they need (logonWorkstations, &quot;Log on as a service&quot; rights).</p></details></td>
+</tr>
+<tr data-sev="medium" data-rule="AAA007" data-search="svc.sql svc.sql service or third-party account without logon hours service account with no logonhours restriction (allowed 24x7).  aaa007">
+<td><span class="badge medium">Medium</span></td>
+<td><strong>svc.sql</strong><div class="muted">svc.sql</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA007</span> Service or third-party account without logon hours<div class="muted">Service account with no logonHours restriction (allowed 24x7).</div></td>
+<td><details><summary>Why and what to do</summary><p>The account looks like a service or third-party account and can log on at any hour, any day. Supplier and contractor access is a common entry point, and an attack at 3 AM on a Sunday goes unnoticed for longer.</p><p><strong>Recommendation:</strong> Set logonHours to the agreed support window for third parties. For service accounts, deny interactive logon and restrict them to the servers they need (logonWorkstations, &quot;Log on as a service&quot; rights).</p></details></td>
+</tr>
+<tr data-sev="medium" data-rule="AAA007" data-search="vnd.erp fornecedor erp service or third-party account without logon hours third-party account with no logonhours restriction (allowed 24x7).  aaa007">
+<td><span class="badge medium">Medium</span></td>
+<td><strong>vnd.erp</strong><div class="muted">Fornecedor ERP</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA007</span> Service or third-party account without logon hours<div class="muted">Third-party account with no logonHours restriction (allowed 24x7).</div></td>
+<td><details><summary>Why and what to do</summary><p>The account looks like a service or third-party account and can log on at any hour, any day. Supplier and contractor access is a common entry point, and an attack at 3 AM on a Sunday goes unnoticed for longer.</p><p><strong>Recommendation:</strong> Set logonHours to the agreed support window for third parties. For service accounts, deny interactive logon and restrict them to the servers they need (logonWorkstations, &quot;Log on as a service&quot; rights).</p></details></td>
+</tr>
+<tr data-sev="medium" data-rule="AAA008" data-search="joao.exemplo joao exemplo account never used created 2026-08-01 (111 days ago) and never logged on.  aaa008">
+<td><span class="badge medium">Medium</span></td>
+<td><strong>joao.exemplo</strong><div class="muted">Joao Exemplo</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA008</span> Account never used<div class="muted">Created 2026-08-01 (111 days ago) and never logged on.</div></td>
+<td><details><summary>Why and what to do</summary><p>The account is enabled, was created a while ago and has never logged on. It usually comes from a hiring that did not happen, a test or a forgotten request, and it often still has the initial password.</p><p><strong>Recommendation:</strong> Check whether the account is still expected. If not, disable and remove it. If it is, force a password change at next logon.</p></details></td>
+</tr>
+<tr data-sev="medium" data-rule="AAA008" data-search="teste.sistema teste sistema account never used created 2025-03-01 (629 days ago) and never logged on.  aaa008">
+<td><span class="badge medium">Medium</span></td>
+<td><strong>teste.sistema</strong><div class="muted">Teste Sistema</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA008</span> Account never used<div class="muted">Created 2025-03-01 (629 days ago) and never logged on.</div></td>
+<td><details><summary>Why and what to do</summary><p>The account is enabled, was created a while ago and has never logged on. It usually comes from a hiring that did not happen, a test or a forgotten request, and it often still has the initial password.</p><p><strong>Recommendation:</strong> Check whether the account is still expected. If not, disable and remove it. If it is, force a password change at next logon.</p></details></td>
+</tr>
+<tr data-sev="low" data-rule="AAA003" data-search="pedro.modelo pedro modelo password not changed for too long last password change 2025-06-01 (537 days ago, threshold 365).  aaa003">
+<td><span class="badge low">Low</span></td>
+<td><strong>pedro.modelo</strong><div class="muted">Pedro Modelo</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA003</span> Password not changed for too long<div class="muted">Last password change 2025-06-01 (537 days ago, threshold 365).</div></td>
+<td><details><summary>Why and what to do</summary><p>The password has not been changed for longer than the configured threshold. Old passwords are more likely to appear in leaks or to be shared informally.</p><p><strong>Recommendation:</strong> Ask the user to change the password, or force a change at next logon. Check whether a fine-grained password policy is exempting this account.</p></details></td>
+</tr>
+<tr data-sev="low" data-rule="AAA003" data-search="svc.print svc.print password not changed for too long last password change 2023-02-01 (1388 days ago, threshold 365).  aaa003">
+<td><span class="badge low">Low</span></td>
+<td><strong>svc.print</strong><div class="muted">svc.print</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA003</span> Password not changed for too long<div class="muted">Last password change 2023-02-01 (1388 days ago, threshold 365).</div></td>
+<td><details><summary>Why and what to do</summary><p>The password has not been changed for longer than the configured threshold. Old passwords are more likely to appear in leaks or to be shared informally.</p><p><strong>Recommendation:</strong> Ask the user to change the password, or force a change at next logon. Check whether a fine-grained password policy is exempting this account.</p></details></td>
+</tr>
+<tr data-sev="low" data-rule="AAA003" data-search="teste.sistema teste sistema password not changed for too long last password change 2025-03-01 (629 days ago, threshold 365).  aaa003">
+<td><span class="badge low">Low</span></td>
+<td><strong>teste.sistema</strong><div class="muted">Teste Sistema</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA003</span> Password not changed for too long<div class="muted">Last password change 2025-03-01 (629 days ago, threshold 365).</div></td>
+<td><details><summary>Why and what to do</summary><p>The password has not been changed for longer than the configured threshold. Old passwords are more likely to appear in leaks or to be shared informally.</p><p><strong>Recommendation:</strong> Ask the user to change the password, or force a change at next logon. Check whether a fine-grained password policy is exempting this account.</p></details></td>
+</tr>
+<tr data-sev="low" data-rule="AAA005" data-search="adm.carlos carlos exemplo (admin) member of a privileged group (review) member of: domain admins, administrators. domain admins, administrators aaa005">
+<td><span class="badge low">Low</span></td>
+<td><strong>adm.carlos</strong><div class="muted">Carlos Exemplo (admin)</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA005</span> Member of a privileged group (review)<div class="muted">Member of: Domain Admins, Administrators.</div></td>
+<td><details><summary>Why and what to do</summary><p>The account is an enabled member of a privileged group, directly or through nested groups. This is not wrong by itself, but every entry here should have a name, an owner and a reason.</p><p><strong>Recommendation:</strong> Review this list with the account owners at least every quarter. Use separate admin accounts for daily work and remove memberships that nobody can justify.</p></details></td>
+</tr>
+<tr data-sev="low" data-rule="AAA005" data-search="adm.paulo paulo amostra (admin) member of a privileged group (review) member of: domain admins, administrators. domain admins, administrators aaa005">
+<td><span class="badge low">Low</span></td>
+<td><strong>adm.paulo</strong><div class="muted">Paulo Amostra (admin)</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA005</span> Member of a privileged group (review)<div class="muted">Member of: Domain Admins, Administrators.</div></td>
+<td><details><summary>Why and what to do</summary><p>The account is an enabled member of a privileged group, directly or through nested groups. This is not wrong by itself, but every entry here should have a name, an owner and a reason.</p><p><strong>Recommendation:</strong> Review this list with the account owners at least every quarter. Use separate admin accounts for daily work and remove memberships that nobody can justify.</p></details></td>
+</tr>
+<tr data-sev="low" data-rule="AAA005" data-search="adm.rafael rafael modelo (admin) member of a privileged group (review) member of: domain admins, administrators. domain admins, administrators aaa005">
+<td><span class="badge low">Low</span></td>
+<td><strong>adm.rafael</strong><div class="muted">Rafael Modelo (admin)</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA005</span> Member of a privileged group (review)<div class="muted">Member of: Domain Admins, Administrators.</div></td>
+<td><details><summary>Why and what to do</summary><p>The account is an enabled member of a privileged group, directly or through nested groups. This is not wrong by itself, but every entry here should have a name, an owner and a reason.</p><p><strong>Recommendation:</strong> Review this list with the account owners at least every quarter. Use separate admin accounts for daily work and remove memberships that nobody can justify.</p></details></td>
+</tr>
+<tr data-sev="low" data-rule="AAA005" data-search="administrator administrator member of a privileged group (review) member of: domain admins, enterprise admins, schema admins, administrators. domain admins, enterprise admins, schema admins, administrators aaa005">
+<td><span class="badge low">Low</span></td>
+<td><strong>Administrator</strong><div class="muted">Administrator</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA005</span> Member of a privileged group (review)<div class="muted">Member of: Domain Admins, Enterprise Admins, Schema Admins, Administrators.</div></td>
+<td><details><summary>Why and what to do</summary><p>The account is an enabled member of a privileged group, directly or through nested groups. This is not wrong by itself, but every entry here should have a name, an owner and a reason.</p><p><strong>Recommendation:</strong> Review this list with the account owners at least every quarter. Use separate admin accounts for daily work and remove memberships that nobody can justify.</p></details></td>
+</tr>
+<tr data-sev="low" data-rule="AAA005" data-search="helpdesk.lucas lucas ficticio (helpdesk) member of a privileged group (review) member of: account operators. account operators aaa005">
+<td><span class="badge low">Low</span></td>
+<td><strong>helpdesk.lucas</strong><div class="muted">Lucas Ficticio (helpdesk)</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA005</span> Member of a privileged group (review)<div class="muted">Member of: Account Operators.</div></td>
+<td><details><summary>Why and what to do</summary><p>The account is an enabled member of a privileged group, directly or through nested groups. This is not wrong by itself, but every entry here should have a name, an owner and a reason.</p><p><strong>Recommendation:</strong> Review this list with the account owners at least every quarter. Use separate admin accounts for daily work and remove memberships that nobody can justify.</p></details></td>
+</tr>
+<tr data-sev="low" data-rule="AAA005" data-search="svc.backup svc.backup member of a privileged group (review) member of: administrators, backup operators. administrators, backup operators aaa005">
+<td><span class="badge low">Low</span></td>
+<td><strong>svc.backup</strong><div class="muted">svc.backup</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA005</span> Member of a privileged group (review)<div class="muted">Member of: Administrators, Backup Operators.</div></td>
+<td><details><summary>Why and what to do</summary><p>The account is an enabled member of a privileged group, directly or through nested groups. This is not wrong by itself, but every entry here should have a name, an owner and a reason.</p><p><strong>Recommendation:</strong> Review this list with the account owners at least every quarter. Use separate admin accounts for daily work and remove memberships that nobody can justify.</p></details></td>
+</tr>
+<tr data-sev="low" data-rule="AAA006" data-search="ex.fernanda fernanda amostra admincount=1 without privileged membership admincount=1 on a disabled account that is not in any audited privileged group.  aaa006">
+<td><span class="badge low">Low</span></td>
+<td><strong>ex.fernanda</strong><div class="muted">Fernanda Amostra</div><div class="muted small">Disabled</div></td>
+<td><span class="rule">AAA006</span> adminCount=1 without privileged membership<div class="muted">adminCount=1 on a disabled account that is not in any audited privileged group.</div></td>
+<td><details><summary>Why and what to do</summary><p>The account still has adminCount=1, a mark left by AdminSDHolder when it was in a protected group, but it is no longer in any of the audited privileged groups. Its permissions stay locked to the protected template and inheritance stays disabled, which hides delegation problems.</p><p><strong>Recommendation:</strong> Confirm the account is really out of every protected group, clear adminCount and re-enable permission inheritance on the object.</p></details></td>
+</tr>
+<tr data-sev="low" data-rule="AAA006" data-search="old.admin.tiago tiago exemplo admincount=1 without privileged membership admincount=1 on an enabled account that is not in any audited privileged group.  aaa006">
+<td><span class="badge low">Low</span></td>
+<td><strong>old.admin.tiago</strong><div class="muted">Tiago Exemplo</div><div class="muted small">Enabled</div></td>
+<td><span class="rule">AAA006</span> adminCount=1 without privileged membership<div class="muted">adminCount=1 on an enabled account that is not in any audited privileged group.</div></td>
+<td><details><summary>Why and what to do</summary><p>The account still has adminCount=1, a mark left by AdminSDHolder when it was in a protected group, but it is no longer in any of the audited privileged groups. Its permissions stay locked to the protected template and inheritance stays disabled, which hides delegation problems.</p><p><strong>Recommendation:</strong> Confirm the account is really out of every protected group, clear adminCount and re-enable permission inheritance on the object.</p></details></td>
+</tr>
+
+</tbody>
+</table>
+
+</main>
+<footer>Stale after 90 days | password age 365 days | never logged on after 30 days | privileged groups: Domain Admins, Enterprise Admins, Schema Admins, Administrators, Account Operators, Backup Operators, Server Operators<br>Generated 2026-11-25T17:09:24Z by ad-access-audit 1.0.0 (read-only, nothing was changed in the directory).</footer>
+<script>
+(function(){
+var root=document.documentElement;
+function store(k,v){try{if(v===undefined){return localStorage.getItem(k);}localStorage.setItem(k,v);}catch(e){return null;}}
+var saved=store('aaa-theme');
+var dark=saved?saved==='dark':(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);
+root.setAttribute('data-theme',dark?'dark':'light');
+document.getElementById('theme').addEventListener('click',function(){
+var next=root.getAttribute('data-theme')==='dark'?'light':'dark';root.setAttribute('data-theme',next);store('aaa-theme',next);});
+var rows=Array.prototype.slice.call(document.querySelectorAll('#rows tr'));
+var cards=Array.prototype.slice.call(document.querySelectorAll('[data-toggle-sev]'));
+var q=document.getElementById('q'),rule=document.getElementById('rule'),count=document.getElementById('count');
+function apply(){
+var on={};cards.forEach(function(c){on[c.getAttribute('data-toggle-sev').toLowerCase()]=c.getAttribute('aria-pressed')==='true';});
+var text=q.value.trim().toLowerCase(),r=rule.value,shown=0;
+rows.forEach(function(tr){
+var ok=on[tr.getAttribute('data-sev')]&&(!r||tr.getAttribute('data-rule')===r)&&(!text||tr.getAttribute('data-search').indexOf(text)>-1);
+tr.className=ok?'':'hidden';if(ok){shown++;}});
+count.textContent='Showing '+shown+' of '+rows.length+' findings';}
+cards.forEach(function(c){c.addEventListener('click',function(){c.setAttribute('aria-pressed',c.getAttribute('aria-pressed')==='true'?'false':'true');apply();});});
+q.addEventListener('input',apply);rule.addEventListener('change',apply);
+document.getElementById('reset').addEventListener('click',function(){q.value='';rule.value='';cards.forEach(function(c){c.setAttribute('aria-pressed','true');});apply();});
+apply();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+# Test and report output
+testResults.xml
+out/
+reports/
+ad-access-audit-*.html
+ad-access-audit-*.csv
+ad-access-audit-*.json
+
+# Real snapshots must never be committed (they contain your directory data)
+snapshot-*.json
+!samples/snapshot-ficticio.json
+
+# Editors and OS
+.vscode/
+.idea/
+*.swp
+Thumbs.db
+.DS_Store

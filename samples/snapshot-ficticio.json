@@ -1,0 +1,785 @@
+{
+    "schemaVersion":  1,
+    "domain":  "exemplo.local",
+    "generatedAt":  "2026-11-20T12:00:00Z",
+    "users":  [
+                  {
+                      "samAccountName":  "Administrator",
+                      "displayName":  "Administrator",
+                      "distinguishedName":  "CN=Administrator,OU=Builtin Users,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2019-02-10T10:00:00Z",
+                      "lastLogonDate":  "2026-11-18T09:12:00Z",
+                      "passwordLastSet":  "2024-01-10T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  1,
+                      "description":  "Built-in account for administering the domain",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "krbtgt",
+                      "displayName":  "krbtgt",
+                      "distinguishedName":  "CN=krbtgt,OU=Builtin Users,DC=exemplo,DC=local",
+                      "enabled":  false,
+                      "whenCreated":  "2019-02-10T10:00:00Z",
+                      "lastLogonDate":  null,
+                      "passwordLastSet":  "2019-02-10T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  1,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "Guest",
+                      "displayName":  "Guest",
+                      "distinguishedName":  "CN=Guest,OU=Builtin Users,DC=exemplo,DC=local",
+                      "enabled":  false,
+                      "whenCreated":  "2019-02-10T10:00:00Z",
+                      "lastLogonDate":  null,
+                      "passwordLastSet":  null,
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "adm.carlos",
+                      "displayName":  "Carlos Exemplo (admin)",
+                      "distinguishedName":  "CN=Carlos Exemplo (admin),OU=Admins,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2026-11-18T09:12:00Z",
+                      "passwordLastSet":  "2026-09-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  1,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "adm.joana",
+                      "displayName":  "Joana Teste (admin)",
+                      "distinguishedName":  "CN=Joana Teste (admin),OU=Admins,DC=exemplo,DC=local",
+                      "enabled":  false,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2026-02-03T08:00:00Z",
+                      "passwordLastSet":  "2026-09-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  1,
+                      "description":  "Desligada em fev/2026",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "adm.rafael",
+                      "displayName":  "Rafael Modelo (admin)",
+                      "distinguishedName":  "CN=Rafael Modelo (admin),OU=Admins,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2026-11-18T09:12:00Z",
+                      "passwordLastSet":  "2023-05-15T10:00:00Z",
+                      "passwordNeverExpires":  true,
+                      "adminCount":  1,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "adm.paulo",
+                      "displayName":  "Paulo Amostra (admin)",
+                      "distinguishedName":  "CN=Paulo Amostra (admin),OU=Admins,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2026-05-02T14:30:00Z",
+                      "passwordLastSet":  "2026-04-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  1,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "helpdesk.lucas",
+                      "displayName":  "Lucas Ficticio (helpdesk)",
+                      "distinguishedName":  "CN=Lucas Ficticio (helpdesk),OU=Admins,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2026-11-18T09:12:00Z",
+                      "passwordLastSet":  "2026-09-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  1,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "old.admin.tiago",
+                      "displayName":  "Tiago Exemplo",
+                      "distinguishedName":  "CN=Tiago Exemplo,OU=Users,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2026-11-18T09:12:00Z",
+                      "passwordLastSet":  "2026-09-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  1,
+                      "description":  "Ex-administrador, hoje no financeiro",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "svc.backup",
+                      "displayName":  "svc.backup",
+                      "distinguishedName":  "CN=svc.backup,OU=Service Accounts,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2021-06-01T10:00:00Z",
+                      "lastLogonDate":  "2026-11-18T09:12:00Z",
+                      "passwordLastSet":  "2021-06-01T10:00:00Z",
+                      "passwordNeverExpires":  true,
+                      "adminCount":  1,
+                      "description":  "Conta de servico do backup noturno",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "svc.sql",
+                      "displayName":  "svc.sql",
+                      "distinguishedName":  "CN=svc.sql,OU=Service Accounts,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2022-01-20T10:00:00Z",
+                      "lastLogonDate":  "2026-11-18T09:12:00Z",
+                      "passwordLastSet":  "2022-01-20T10:00:00Z",
+                      "passwordNeverExpires":  true,
+                      "adminCount":  0,
+                      "description":  "SQL Server do sistema interno",
+                      "servicePrincipalNames":  [
+                                                    "MSSQLSvc/sql01.exemplo.local:1433"
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "svc.web",
+                      "displayName":  "svc.web",
+                      "distinguishedName":  "CN=svc.web,OU=Service Accounts,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2023-03-01T10:00:00Z",
+                      "lastLogonDate":  "2026-11-18T09:12:00Z",
+                      "passwordLastSet":  "2026-08-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "Pool da intranet",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  "AAAAAP8DAP8DAP8DAP8DAP8DAAAA"
+                  },
+                  {
+                      "samAccountName":  "svc.print",
+                      "displayName":  "svc.print",
+                      "distinguishedName":  "CN=svc.print,OU=Service Accounts,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2020-09-01T10:00:00Z",
+                      "lastLogonDate":  "2026-11-18T09:12:00Z",
+                      "passwordLastSet":  "2023-02-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "Servidor de impressao",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  "////////////////////////////"
+                  },
+                  {
+                      "samAccountName":  "svc.monitor",
+                      "displayName":  "svc.monitor",
+                      "distinguishedName":  "CN=svc.monitor,OU=Service Accounts,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2024-07-01T10:00:00Z",
+                      "lastLogonDate":  "2026-11-18T09:12:00Z",
+                      "passwordLastSet":  "2026-07-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "Coleta de metricas",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  "AAAAAP8DAP8DAP8DAP8DAP8DAAAA"
+                  },
+                  {
+                      "samAccountName":  "ext.consultoria",
+                      "displayName":  "Consultoria Exemplo",
+                      "distinguishedName":  "CN=Consultoria Exemplo,OU=Third Parties,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2026-09-01T10:00:00Z",
+                      "lastLogonDate":  "2026-11-18T09:12:00Z",
+                      "passwordLastSet":  "2026-09-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "Terceiro: Empresa Exemplo Ltda",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "ext.suporte",
+                      "displayName":  "Suporte Externo Teste",
+                      "distinguishedName":  "CN=Suporte Externo Teste,OU=Third Parties,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2025-04-01T10:00:00Z",
+                      "lastLogonDate":  "2026-11-18T09:12:00Z",
+                      "passwordLastSet":  "2026-10-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "Prestador de suporte, horario comercial",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  "AAAAAP8DAP8DAP8DAP8DAP8DAAAA"
+                  },
+                  {
+                      "samAccountName":  "vnd.erp",
+                      "displayName":  "Fornecedor ERP",
+                      "distinguishedName":  "CN=Fornecedor ERP,OU=Third Parties,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2024-02-01T10:00:00Z",
+                      "lastLogonDate":  "2026-03-10T16:00:00Z",
+                      "passwordLastSet":  "2026-01-10T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "Fornecedor do ERP",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "joao.prestador",
+                      "displayName":  "Joao Teste",
+                      "distinguishedName":  "CN=Joao Teste,OU=Third Parties,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2025-10-01T10:00:00Z",
+                      "lastLogonDate":  "2026-11-18T09:12:00Z",
+                      "passwordLastSet":  "2026-10-15T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "Prestador de servico (contrato 2026)",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  "AAAAAP8DAP8DAP8DAP8DAP8DAAAA"
+                  },
+                  {
+                      "samAccountName":  "ex.marcos",
+                      "displayName":  "Marcos Modelo",
+                      "distinguishedName":  "CN=Marcos Modelo,OU=Disabled,DC=exemplo,DC=local",
+                      "enabled":  false,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2026-01-20T17:00:00Z",
+                      "passwordLastSet":  "2026-09-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  1,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "ex.fernanda",
+                      "displayName":  "Fernanda Amostra",
+                      "distinguishedName":  "CN=Fernanda Amostra,OU=Disabled,DC=exemplo,DC=local",
+                      "enabled":  false,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2025-12-01T17:00:00Z",
+                      "passwordLastSet":  "2026-09-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  1,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "ex.renato",
+                      "displayName":  "Renato Exemplo",
+                      "distinguishedName":  "CN=Renato Exemplo,OU=Disabled,DC=exemplo,DC=local",
+                      "enabled":  false,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2025-08-01T17:00:00Z",
+                      "passwordLastSet":  "2026-09-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "maria.teste",
+                      "displayName":  "Maria Teste",
+                      "distinguishedName":  "CN=Maria Teste,OU=Users,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2026-06-01T08:30:00Z",
+                      "passwordLastSet":  "2026-09-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "estagio.bia",
+                      "displayName":  "Beatriz Modelo",
+                      "distinguishedName":  "CN=Beatriz Modelo,OU=Users,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2026-04-15T08:30:00Z",
+                      "passwordLastSet":  "2025-02-01T10:00:00Z",
+                      "passwordNeverExpires":  true,
+                      "adminCount":  0,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "joao.exemplo",
+                      "displayName":  "Joao Exemplo",
+                      "distinguishedName":  "CN=Joao Exemplo,OU=Users,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2026-08-01T10:00:00Z",
+                      "lastLogonDate":  null,
+                      "passwordLastSet":  "2026-08-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "teste.sistema",
+                      "displayName":  "Teste Sistema",
+                      "distinguishedName":  "CN=Teste Sistema,OU=Users,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2025-03-01T10:00:00Z",
+                      "lastLogonDate":  null,
+                      "passwordLastSet":  "2025-03-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "Conta de teste",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "pedro.modelo",
+                      "displayName":  "Pedro Modelo",
+                      "distinguishedName":  "CN=Pedro Modelo,OU=Users,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2026-11-18T09:12:00Z",
+                      "passwordLastSet":  "2025-06-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "lucia.amostra",
+                      "displayName":  "Lucia Amostra",
+                      "distinguishedName":  "CN=Lucia Amostra,OU=Users,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2026-11-18T09:12:00Z",
+                      "passwordLastSet":  "2026-01-05T10:00:00Z",
+                      "passwordNeverExpires":  true,
+                      "adminCount":  0,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "recepcao",
+                      "displayName":  "Recepcao",
+                      "distinguishedName":  "CN=Recepcao,OU=Users,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2020-01-10T10:00:00Z",
+                      "lastLogonDate":  "2026-11-18T09:12:00Z",
+                      "passwordLastSet":  "2020-01-10T10:00:00Z",
+                      "passwordNeverExpires":  true,
+                      "adminCount":  0,
+                      "description":  "Conta compartilhada da recepcao",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "nova.contratada",
+                      "displayName":  "Nova Contratada",
+                      "distinguishedName":  "CN=Nova Contratada,OU=Users,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2026-11-10T10:00:00Z",
+                      "lastLogonDate":  null,
+                      "passwordLastSet":  "2026-11-10T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "ana.exemplo",
+                      "displayName":  "Ana Exemplo",
+                      "distinguishedName":  "CN=Ana Exemplo,OU=Users,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2026-11-18T09:12:00Z",
+                      "passwordLastSet":  "2026-09-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "bruno.teste",
+                      "displayName":  "Bruno Teste",
+                      "distinguishedName":  "CN=Bruno Teste,OU=Users,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2026-11-19T08:01:00Z",
+                      "passwordLastSet":  "2026-09-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "camila.modelo",
+                      "displayName":  "Camila Modelo",
+                      "distinguishedName":  "CN=Camila Modelo,OU=Users,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2026-11-18T09:12:00Z",
+                      "passwordLastSet":  "2026-06-20T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "diego.amostra",
+                      "displayName":  "Diego Amostra",
+                      "distinguishedName":  "CN=Diego Amostra,OU=Users,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2026-11-17T13:45:00Z",
+                      "passwordLastSet":  "2026-09-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "elisa.exemplo",
+                      "displayName":  "Elisa Exemplo",
+                      "distinguishedName":  "CN=Elisa Exemplo,OU=Users,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2026-11-18T09:12:00Z",
+                      "passwordLastSet":  "2026-03-10T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "fabio.teste",
+                      "displayName":  "Fabio Teste",
+                      "distinguishedName":  "CN=Fabio Teste,OU=Users,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2026-10-30T09:00:00Z",
+                      "passwordLastSet":  "2026-09-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "gabriela.modelo",
+                      "displayName":  "Gabriela Modelo",
+                      "distinguishedName":  "CN=Gabriela Modelo,OU=Users,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2026-11-18T09:12:00Z",
+                      "passwordLastSet":  "2026-09-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "heitor.amostra",
+                      "displayName":  "Heitor Amostra",
+                      "distinguishedName":  "CN=Heitor Amostra,OU=Users,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2026-11-18T09:12:00Z",
+                      "passwordLastSet":  "2026-10-02T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "ines.exemplo",
+                      "displayName":  "Ines Exemplo",
+                      "distinguishedName":  "CN=Ines Exemplo,OU=Users,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2026-09-15T11:20:00Z",
+                      "passwordLastSet":  "2026-09-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "julio.teste",
+                      "displayName":  "Julio Teste",
+                      "distinguishedName":  "CN=Julio Teste,OU=Users,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2026-11-18T09:12:00Z",
+                      "passwordLastSet":  "2026-09-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  },
+                  {
+                      "samAccountName":  "karen.modelo",
+                      "displayName":  "Karen Modelo",
+                      "distinguishedName":  "CN=Karen Modelo,OU=Users,DC=exemplo,DC=local",
+                      "enabled":  true,
+                      "whenCreated":  "2024-03-01T12:00:00Z",
+                      "lastLogonDate":  "2026-11-20T07:55:00Z",
+                      "passwordLastSet":  "2026-09-01T10:00:00Z",
+                      "passwordNeverExpires":  false,
+                      "adminCount":  0,
+                      "description":  "",
+                      "servicePrincipalNames":  [
+
+                                                ],
+                      "logonHours":  null
+                  }
+              ],
+    "groups":  [
+                   {
+                       "name":  "Domain Admins",
+                       "alias":  "",
+                       "distinguishedName":  "CN=Domain Admins,CN=Users,DC=exemplo,DC=local",
+                       "members":  [
+                                       {
+                                           "name":  "Administrator",
+                                           "objectClass":  "user"
+                                       },
+                                       {
+                                           "name":  "adm.carlos",
+                                           "objectClass":  "user"
+                                       },
+                                       {
+                                           "name":  "adm.joana",
+                                           "objectClass":  "user"
+                                       },
+                                       {
+                                           "name":  "adm.paulo",
+                                           "objectClass":  "user"
+                                       },
+                                       {
+                                           "name":  "GG-TI-Admins",
+                                           "objectClass":  "group"
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "Enterprise Admins",
+                       "alias":  "",
+                       "distinguishedName":  "CN=Enterprise Admins,CN=Users,DC=exemplo,DC=local",
+                       "members":  [
+                                       {
+                                           "name":  "Administrator",
+                                           "objectClass":  "user"
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "Schema Admins",
+                       "alias":  "",
+                       "distinguishedName":  "CN=Schema Admins,CN=Users,DC=exemplo,DC=local",
+                       "members":  [
+                                       {
+                                           "name":  "Administrator",
+                                           "objectClass":  "user"
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "Administrators",
+                       "alias":  "",
+                       "distinguishedName":  "CN=Administrators,CN=Builtin,DC=exemplo,DC=local",
+                       "members":  [
+                                       {
+                                           "name":  "Administrator",
+                                           "objectClass":  "user"
+                                       },
+                                       {
+                                           "name":  "Domain Admins",
+                                           "objectClass":  "group"
+                                       },
+                                       {
+                                           "name":  "Enterprise Admins",
+                                           "objectClass":  "group"
+                                       },
+                                       {
+                                           "name":  "svc.backup",
+                                           "objectClass":  "user"
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "Account Operators",
+                       "alias":  "",
+                       "distinguishedName":  "CN=Account Operators,CN=Builtin,DC=exemplo,DC=local",
+                       "members":  [
+                                       {
+                                           "name":  "helpdesk.lucas",
+                                           "objectClass":  "user"
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "Backup Operators",
+                       "alias":  "",
+                       "distinguishedName":  "CN=Backup Operators,CN=Builtin,DC=exemplo,DC=local",
+                       "members":  [
+                                       {
+                                           "name":  "svc.backup",
+                                           "objectClass":  "user"
+                                       },
+                                       {
+                                           "name":  "ex.marcos",
+                                           "objectClass":  "user"
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "Server Operators",
+                       "alias":  "",
+                       "distinguishedName":  "CN=Server Operators,CN=Builtin,DC=exemplo,DC=local",
+                       "members":  [
+
+                                   ]
+                   },
+                   {
+                       "name":  "GG-TI-Admins",
+                       "alias":  "",
+                       "distinguishedName":  "CN=GG-TI-Admins,CN=Users,DC=exemplo,DC=local",
+                       "members":  [
+                                       {
+                                           "name":  "adm.rafael",
+                                           "objectClass":  "user"
+                                       },
+                                       {
+                                           "name":  "GG-TI-Plantao",
+                                           "objectClass":  "group"
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "GG-TI-Plantao",
+                       "alias":  "",
+                       "distinguishedName":  "CN=GG-TI-Plantao,CN=Users,DC=exemplo,DC=local",
+                       "members":  [
+                                       {
+                                           "name":  "adm.carlos",
+                                           "objectClass":  "user"
+                                       },
+                                       {
+                                           "name":  "GG-TI-Admins",
+                                           "objectClass":  "group"
+                                       }
+                                   ]
+                   }
+               ]
+}
